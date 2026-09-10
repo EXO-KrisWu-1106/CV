@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>个人简历 - 简约现代模板</title>
+  <meta name="description" content="交互式个人简历模板 - 简约现代风格" />
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.6);
+      --radius:12px;
+      --shadow: 0 6px 25px rgba(16,24,40,0.08);
+      --container-width:1100px;
+      --max-content-width:760px;
+      color-scheme: light;
+      font-family: Inter, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    :root.dark {
+      --bg:#0b1020;
+      --card:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      --muted:#9aa4bf;
+      --accent:#7dd3fc;
+      --accent-2:#67e8f9;
+      --glass: rgba(255,255,255,0.03);
+      --shadow: 0 6px 30px rgba(2,6,23,0.7);
+      color-scheme: dark;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      color: #0f172a;
+      display:flex;
+      justify-content:center;
+      padding:36px 20px;
+    }
+    :root.dark body{color:#e6eef8}
+
+    /* Layout container */
+    .wrap{
+      width:100%;
+      max-width:var(--container-width);
+      display:grid;
+      gap:28px;
+      grid-template-columns: 320px 1fr;
+      align-items:start;
+    }
+    @media (max-width:900px){
+      .wrap{grid-template-columns:1fr; padding-bottom:40px}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+      position:sticky;
+      top:26px;
+      height:fit-content;
+      overflow:visible;
+    }
+    .avatar{
+      width:100%;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .avatar img{width:72px;height:72px;border-radius:14px;object-fit:cover;flex:0 0 72px}
+    .name{
+      font-size:18px;font-weight:700;margin:0;
+      letter-spacing:0.2px;
+    }
+    .role{font-size:13px;color:var(--muted);margin-top:6px}
+
+    .bio{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.45}
+
+    .contact, .quick {
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size:13px;
+    }
+    .contact a{color:var(--accent);text-decoration:none}
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      background:linear-gradient(90deg, rgba(37,99,235,0.08), rgba(6,182,212,0.04));
+      padding:6px 10px;border-radius:999px;color:var(--accent);
+      font-weight:600;font-size:13px;
+    }
+
+    .actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    button.btn{
+      border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600;
+      background:var(--accent);color:white;box-shadow:0 6px 18px rgba(37,99,235,0.12);
+    }
+    button.btn.ghost{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--muted);box-shadow:none}
+    .theme-toggle{margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--glass);border:1px solid rgba(0,0,0,0.03)}
+    @media (max-width:900px){
+      .sidebar{position:relative;top:0}
+      .theme-toggle{margin-left:0}
+    }
+
+    /* Main content */
+    main{
+      max-width:var(--max-content-width);
+    }
+    nav.topnav{
+      display:flex;gap:12px;align-items:center;margin-bottom:12px;
+      position:sticky;top:26px;z-index:10;
+    }
+    .navlink{
+      padding:8px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600;font-size:13px;
+    }
+    .navlink.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:0 8px 25px rgba(37,99,235,0.12)}
+    .section{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:20px;
+      margin-bottom:18px;
+      box-shadow:var(--shadow);
+      opacity:0;
+      transform:translateY(18px) scale(0.995);
+      transition:all 520ms cubic-bezier(.18,.9,.32,1);
+    }
+    .section.in-view{opacity:1;transform:none}
+
+    .section h2{margin:0 0 14px;font-size:16px}
+    /* Education & Experience timeline */
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .item{
+      display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start;
+      padding:10px;border-radius:10px;transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .item:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.06)}
+    .time{font-size:13px;color:var(--muted)}
+    .role-title{font-weight:700;margin-bottom:6px}
+    .item p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+
+    /* Skills */
+    .skills-tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{padding:8px 10px;border-radius:10px;background:transparent;border:1px solid rgba(15,23,42,0.04);cursor:pointer;font-weight:700;color:var(--muted)}
+    .tab.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+    .skill-list{display:grid;gap:10px}
+    .skill{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      padding:10px;border-radius:10px;background: linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.00));
+    }
+    .skill .bar{
+      height:10px;background:rgba(0,0,0,0.06);border-radius:999px;overflow:hidden;flex:1;margin-left:12px;
+    }
+    .skill .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width 900ms cubic-bezier(.2,.9,.2,1)}
+    .skill strong{font-size:13px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:640px){ .contact-grid{grid-template-columns:1fr} }
+
+    /* Footer small */
+    footer{font-size:13px;color:var(--muted);text-align:center;padding:10px;margin-top:12px}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    a.social{display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:var(--muted);padding:8px;border-radius:8px}
+    a.social:hover{color:var(--accent)}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(15,23,42,0.04);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px}
+
+    /* print-friendly */
+    @media print{
+      body{padding:0;background:white}
+      .sidebar, .section{box-shadow:none;page-break-inside:avoid}
+      nav.topnav, .actions, .theme-toggle{display:none}
+    }
+
+    /* Accessibility focus */
+    .navlink:focus, .tab:focus, button:focus, a:focus{outline:3px solid rgba(37,99,235,0.12);outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="page">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="个人信息侧边栏">
+      <div class="avatar">
+        <!-- Inline SVG avatar as placeholder -->
+        <img src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' width='144' height='144' viewBox='0 0 144 144'>
+            <defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%232563eb'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient></defs>
+            <rect rx='18' width='144' height='144' fill='%23eef2ff'/>
+            <g transform='translate(18 18)'>
+              <circle cx='54' cy='34' r='28' fill='url(%23g)' />
+              <rect x='0' y='76' width='108' height='50' rx='10' fill='%23dbeafe'/>
+              <circle cx='22' cy='40' r='6' fill='white' opacity='.12'/>
+            </g>
+          </svg>" alt="头像" />
+        <div>
+          <p class="name">张三 / Kris Wu</p>
+          <p class="role">前端工程师 · UI 设计 · 全栈兴趣</p>
+        </div>
+      </div>
+
+      <p class="bio">我是一名前端开发者，擅长构建简洁、可访问且高性能的用户界面，热衷于动画与良好交互体验设计。</p>
+
+      <div class="contact" aria-label="联系方式">
+        <div><strong>居住地：</strong><span class="muted">上海，中国</span></div>
+        <div><strong>邮箱：</strong><a href="mailto:kris@example.com">kris@example.com</a></div>
+        <div><strong>电话：</strong><a href="tel:+8613800000000">+86 138 0000 0000</a></div>
+      </div>
+
+      <div class="quick">
+        <span class="pill">可到岗：1个月内</span>
+        <div class="tags" aria-hidden="true" style="margin-top:6px">
+          <span class="tag">React</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">CSS</span>
+        </div>
+      </div>
+
+      <div class="actions" style="align-items:center">
+        <button class="btn" id="downloadBtn" title="打印或保存为 PDF">下载简历</button>
+        <button class="btn ghost" id="contactBtn" title="通过邮件联系">联系我</button>
+        <div class="theme-toggle" id="themeToggle" role="button" aria-pressed="false" tabindex="0" title="切换深色/浅色">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:block">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"></path>
+          </svg>
+          <span style="font-weight:700">主题</span>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;font-size:13px;color:var(--muted)">
+        <strong>社交</strong>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <a class="social" href="#" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 .5C5.73.5.95 5.28.95 11.55c0 4.7 3.07 8.68 7.33 10.08.54.1.74-.24.74-.52 0-.26-.01-1.14-.02-2.07-2.98.65-3.61-1.44-3.61-1.44-.49-1.25-1.2-1.58-1.2-1.58-.98-.67.08-.66.08-.66 1.08.08 1.65 1.11 1.65 1.11.96 1.63 2.52 1.16 3.13.89.1-.7.38-1.16.69-1.43-2.38-.27-4.88-1.2-4.88-5.36 0-1.18.42-2.14 1.11-2.89-.11-.27-.48-1.36.11-2.83 0 0 .91-.29 2.98 1.11a10.28 10.28 0 012.71-.36c.92.01 1.85.12 2.71.36 2.07-1.4 2.98-1.11 2.98-1.11.59 1.47.22 2.56.11 2.83.69.75 1.11 1.71 1.11 2.89 0 4.17-2.51 5.08-4.9 5.35.39.34.73 1.02.73 2.06 0 1.48-.01 2.68-.01 3.05 0 .29.19.63.75.52C19.98 20.22 23.05 16.25 23.05 11.55 23.05 5.28 18.27.5 12 .5z" fill="currentColor"/></svg> GitHub</a>
+          <a class="social" href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM3 9h4v12H3zM9 9h3.8v1.6h.1c.5-.9 1.8-1.8 3.7-1.8 4 0 4.8 2.6 4.8 6v7.2h-4V16c0-2-.1-4.4-2.8-4.4-2.8 0-3.2 2.2-3.2 4.3v7.1H9z" fill="currentColor"/></svg> LinkedIn</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main>
+      <nav class="topnav" aria-label="页面导航">
+        <a class="navlink active" href="#summary">简介</a>
+        <a class="navlink" href="#education">教育</a>
+        <a class="navlink" href="#experience">经历</a>
+        <a class="navlink" href="#skills">技能</a>
+        <a class="navlink" href="#contact">联系方式</a>
+      </nav>
+
+      <section id="summary" class="section" aria-labelledby="summaryTitle">
+        <h2 id="summaryTitle">个人简介</h2>
+        <p class="muted">嗨，我是张三（Kris）。拥有 5+ 年互联网产品前端开发经验，擅长把视觉与前端工程结合，负责过多个移动和桌面端项目。我的工作重点是：快速迭代、良好可维护性、以及愉悦的用户体验。</p>
+
+        <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+          <div style="flex:1;min-width:220px">
+            <h3 style="margin:0 0 8px">核心专长</h3>
+            <ul style="margin:0;padding-left:18px;color:var(--muted)">
+              <li>React + TypeScript</li>
+              <li>现代 CSS（Flex/Grid / CSS Variables / 动画）</li>
+              <li>性能优化与前端工程化</li>
+            </ul>
+          </div>
+          <div style="flex:1;min-width:220px">
+            <h3 style="margin:0 0 8px">求职意向</h3>
+            <p class="muted" style="margin:0">中高级前端工程师 / 前端组长，期望公司注重产品与设计体验。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="education" class="section" aria-labelledby="eduTitle">
+        <h2 id="eduTitle">教育背景</h2>
+        <div class="timeline" role="list">
+          <div class="item" role="listitem">
+            <div class="time">2014 - 2018</div>
+            <div>
+              <div class="role-title">XXX 大学 · 计算机科学学士</div>
+              <p class="muted">主修计算机科学，参与多项 Web 项目开发和竞赛，打下扎实的算法与工程基础。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="section" aria-labelledby="expTitle">
+        <h2 id="expTitle">工作经历</h2>
+        <div class="timeline" role="list">
+          <div class="item" role="listitem">
+            <div class="time">2021 - 现在</div>
+            <div>
+              <div class="role-title">高级前端工程师 · 某互联网公司</div>
+              <p class="muted">负责公司核心产品的前端架构与 UI 重构，引入组件化、TypeScript 和严格的前端规范，提升了页面渲染性能与可维护性。</p>
+            </div>
+          </div>
+
+          <div class="item" role="listitem">
+            <div class="time">2018 - 2021</div>
+            <div>
+              <div class="role-title">前端工程师 · 初创公司</div>
+              <p class="muted">从零搭建产品前端架构，优化首屏时间并实现响应式设计；与设计/后端紧密合作，推动多次上线交付。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section" aria-labelledby="skillTitle">
+        <h2 id="skillTitle">技能专长</h2>
+
+        <div class="skills-tabs" role="tablist" aria-label="技能标签">
+          <button class="tab active" data-tab="tech" role="tab" aria-selected="true">技术技能</button>
+          <button class="tab" data-tab="soft" role="tab" aria-selected="false">软技能</button>
+        </div>
+
+        <div id="tech" class="skill-panel" role="tabpanel">
+          <div class="skill-list">
+            <div class="skill">
+              <strong>React</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="92"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">92%</span>
+              </div>
+            </div>
+
+            <div class="skill">
+              <strong>TypeScript</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="86"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">86%</span>
+              </div>
+            </div>
+
+            <div class="skill">
+              <strong>HTML / CSS</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="94"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">94%</span>
+              </div>
+            </div>
+
+            <div class="skill">
+              <strong>性能优化</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="78"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">78%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="soft" class="skill-panel" style="display:none" role="tabpanel">
+          <div class="skill-list">
+            <div class="skill">
+              <strong>跨团队沟通</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="88"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">88%</span>
+              </div>
+            </div>
+            <div class="skill">
+              <strong>产品意识</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="85"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">85%</span>
+              </div>
+            </div>
+            <div class="skill">
+              <strong>团队协作 / 指导</strong>
+              <div style="display:flex;align-items:center;width:56%">
+                <div class="bar" aria-hidden="true"><i data-progress="82"></i></div>
+                <span style="width:36px;text-align:right;color:var(--muted);font-weight:700">82%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section" aria-labelledby="contactTitle">
+        <h2 id="contactTitle">联系方式</h2>
+        <div class="contact-grid">
+          <div style="padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.00))">
+            <p style="margin:0 0 8px"><strong>邮箱</strong></p>
+            <p class="muted" style="margin:0 0 10px"><a href="mailto:kris@example.com">kris@example.com</a></p>
+            <p style="margin:0 0 8px"><strong>电话</strong></p>
+            <p class="muted" style="margin:0">+86 138 0000 0000</p>
+          </div>
+
+          <div style="padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.00))">
+            <p style="margin:0 0 8px"><strong>其他</strong></p>
+            <p class="muted" style="margin:0 0 6px">期望地点：上海 / 远程</p>
+            <p class="muted" style="margin:0">入职时间：1 个月内</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <form id="contactForm" onsubmit="return false" aria-label="联系表单">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input id="nameField" placeholder="你的姓名" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.04)" required />
+              <input id="emailField" placeholder="你的邮箱" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.04)" required />
+            </div>
+            <textarea id="msgField" placeholder="简短留言（可选）" rows="4" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.04)"></textarea>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" id="sendBtn">通过邮箱发送</button>
+              <button class="btn ghost" id="resetBtn" type="reset">清空</button>
+            </div>
+            <p class="muted" style="margin-top:8px">（表单会使用本地 mailto 打开默认邮箱客户端）</p>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        © 2026 张三（Kris Wu） — 简约现代简历模板 · 可根据需要定制
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Simple helper functions
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+
+    // Smooth scroll for nav links and update active state on click
+    document.querySelectorAll('.topnav .navlink').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        document.querySelectorAll('.topnav .navlink').forEach(n=>n.classList.remove('active'));
+        a.classList.add('active');
+        const id = a.getAttribute('href');
+        document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // IntersectionObserver to reveal sections and animate skill bars
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          // animate skill bars when skills section enters
+          if(entry.target.id === 'skills'){
+            document.querySelectorAll('.skill .bar i').forEach(i=>{
+              const p = i.getAttribute('data-progress') || 0;
+              i.style.width = p + '%';
+            });
+          }
+        }
+      });
+    }, {threshold:0.12});
+
+    document.querySelectorAll('.section').forEach(s=>observer.observe(s));
+
+    // Update nav active based on scroll position
+    const sections = Array.from(document.querySelectorAll('main > section'));
+    const navlinks = Array.from(document.querySelectorAll('.topnav .navlink'));
+    const navObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id = '#' + entry.target.id;
+          navlinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===id));
+        }
+      });
+    }, {threshold:0.48});
+    sections.forEach(s=>navObserver.observe(s));
+
+    // Skills tab switching
+    document.querySelectorAll('.skills-tabs .tab').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.skills-tabs .tab').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+        const t = btn.getAttribute('data-tab');
+        document.querySelectorAll('.skill-panel').forEach(p=>p.style.display='none');
+        document.getElementById(t).style.display = 'block';
+        // reset progress in case
+        document.querySelectorAll('#'+t+' .skill .bar i').forEach(i=>{
+          const p = i.getAttribute('data-progress') || 0;
+          // slight timeout for smoothness
+          setTimeout(()=>i.style.width = p + '%', 80);
+        });
+      });
+    });
+
+    // Contact buttons
+    $('#contactBtn').addEventListener('click', ()=> {
+      location.href = 'mailto:kris@example.com?subject=来自简历页面的联系';
+    });
+
+    $('#downloadBtn').addEventListener('click', ()=> {
+      // Print, user can choose save as PDF
+      window.print();
+    });
+
+    // contact form - open mail client with prefill
+    $('#sendBtn').addEventListener('click', ()=>{
+      const name = encodeURIComponent($('#nameField').value || '匿名');
+      const email = encodeURIComponent($('#emailField').value || '');
+      const msg = encodeURIComponent($('#msgField').value || '');
+      const body = encodeURIComponent('姓名：') + name + '%0D%0A' + encodeURIComponent('邮箱：') + email + '%0D%0A%0D%0A' + msg;
+      location.href = 'mailto:kris@example.com?subject=' + encodeURIComponent('来自简历页面的消息') + '&body=' + body;
+    });
+
+    // Theme toggle (dark/light)
+    const root = document.documentElement;
+    const themeToggle = $('#themeToggle');
+    function setDark(on){
+      if(on){ root.classList.add('dark'); themeToggle.setAttribute('aria-pressed','true'); }
+      else { root.classList.remove('dark'); themeToggle.setAttribute('aria-pressed','false'); }
+      // persist
+      try{ localStorage.setItem('prefers-dark', on ? '1' : '0'); }catch(e){}
+    }
+    // init from localStorage or matchMedia
+    try {
+      const pref = localStorage.getItem('prefers-dark');
+      if(pref !== null) setDark(pref === '1');
+      else setDark(window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    } catch(e) { /* ignore */ }
+
+    themeToggle.addEventListener('click', ()=> setDark(!root.classList.contains('dark')));
+    themeToggle.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDark(!root.classList.contains('dark')); }});
+
+    // keyboard accessible skip to content (basic)
+    document.addEventListener('keydown', (e)=> {
+      if((e.ctrlKey || e.metaKey) && e.key === 'k'){ e.preventDefault(); $('#nameField').focus(); }
+    });
+
+    // Make nav links focusable and accessible for small screens
+    // (no extra code necessary, just helpful comments)
+
+    // small progressive enhancement: animate avatar svg with hover
+    document.querySelector('.avatar img').addEventListener('mouseover', function(){ this.style.transform = 'translateY(-4px) scale(1.02)'; this.style.transition = 'transform 260ms ease';});
+    document.querySelector('.avatar img').addEventListener('mouseout', function(){ this.style.transform = 'none'; });
+
+    // Ensure initial in-view detection for above-the-fold
+    document.querySelectorAll('.section').forEach(s=>{
+      const r = s.getBoundingClientRect();
+      if(r.top < window.innerHeight * 0.8) s.classList.add('in-view');
+    });
+  </script>
+</body>
+</html>

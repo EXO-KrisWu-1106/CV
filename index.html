@@ -53,6 +53,8 @@
     .mark { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: .04em; }
     .mark-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 5px 5px 0 var(--yellow); }
     .topbar-actions { display: flex; align-items: center; gap: 12px; }
+    .app-link { color: var(--accent-deep); font: 12px 'DM Mono', monospace; letter-spacing: .12em; }
+    .app-link:hover { color: var(--ink); }
     .availability { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
     .availability i { width: 8px; height: 8px; border-radius: 50%; background: #72a58c; box-shadow: 0 0 0 5px rgba(114,165,140,.16); }
     .theme-toggle { border: 1px solid var(--line); border-radius: 999px; width: 40px; height: 40px; cursor: pointer; background: rgba(255,255,255,.25); transition: transform .2s, background .2s; }
@@ -159,6 +161,7 @@
   <header class="shell topbar">
     <a class="mark" href="#top" aria-label="回到顶部"><i class="mark-dot"></i>Gao Ke / CV</a>
     <div class="topbar-actions">
+      <a class="app-link" href="app.html">APP</a>
       <span class="availability"><i></i>正在寻找好项目</span>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">◐</button>
     </div>

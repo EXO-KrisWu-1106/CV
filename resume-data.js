@@ -5,9 +5,9 @@ window.resumeData = {
     location: 'Shanghai',
     availability: '正在寻找好项目',
     eyebrow: 'Product designer · Shanghai',
-    headline: '你过瘾啦，该',
-    headlineAccent: '轮到我了',
-    intro: '你好，我是 Gao Ke。一名专注于数字产品与品牌体验的设计师，喜欢从真实问题出发，把洞察变成清晰、有效且有温度的体验。',
+    headline: '把简单的事',
+    headlineAccent: '变复杂，纯添乱',
+    intro: '你好，我是Gao Ke,别的不会，就会捣乱，如果你的公司没有事干，可以请我来给你找点事做。',
     portraitLabel: 'DESIGN WITH INTENT'
   },
   experience: {

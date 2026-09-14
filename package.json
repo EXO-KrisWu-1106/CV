@@ -1,0 +1,13 @@
+{
+  "name": "cv-local-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gao Ke CV local development environment",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

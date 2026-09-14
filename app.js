@@ -49,6 +49,10 @@ function renderResume() {
         <div class="skill-list">${skills.items.map((item) => `<div class="skill-item" data-type="${item.type}"><div class="skill-top"><span>${item.name}</span><span>${item.level}%</span></div><div class="meter"><i style="--level:${item.level}%"></i></div></div>`).join('')}</div>
       </div>
     </section>
+    <section class="shell app-embed reveal" id="app">
+      <div class="app-embed-head"><div><span class="section-number">04 / APP</span><h2 class="app-embed-title">把饭，放进嘴里。</h2></div><p class="app-embed-note">这是 Gao Ke 的 APP 产品设计页面，保留在当前作品集布局中。</p></div>
+      <iframe class="app-frame" src="app.html" title="Gao Ke APP 产品设计页面" loading="lazy"></iframe>
+    </section>
     <section class="shell section contact reveal" id="contact">
       <div><div class="eyebrow">${contact.eyebrow}</div><h2>${contact.title}<br><em>${contact.titleAccent}</em></h2><p class="contact-copy">${contact.description}</p></div>
       <div class="contact-list">${contact.links.map((link) => `<a class="contact-link" href="${link.href}"${link.external ? ' target="_blank" rel="noreferrer"' : ''}>${contactIcons[link.type]}${link.label}</a>`).join('')}</div>

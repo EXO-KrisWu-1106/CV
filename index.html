@@ -126,6 +126,11 @@
     .contact-link { display: inline-flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); transition: color .2s, padding .2s; }
     .contact-link:hover { color: var(--accent); padding-left: 8px; }
     .contact-link svg { width: 17px; height: 17px; }
+    .app-embed { padding: 72px 0; border-top: 1px solid var(--line); }
+    .app-embed-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
+    .app-embed-title { margin: 8px 0 0; font-size: clamp(32px, 5vw, 56px); line-height: 1; letter-spacing: -.07em; }
+    .app-embed-note { max-width: 320px; margin: 0; color: var(--muted); font-size: 14px; }
+    .app-frame { display: block; width: 100%; height: 820px; border: 1px solid var(--line); background: var(--paper); }
     footer { display: flex; justify-content: space-between; gap: 20px; padding: 30px 0 36px; color: var(--muted); font: 11px 'DM Mono', monospace; border-top: 1px solid var(--line); }
 
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
@@ -149,6 +154,9 @@
       .timeline-item::before { left: 0; top: 24px; }
       .timeline-date { margin-bottom: 13px; }
       .education-grid, .skills-layout, .contact { grid-template-columns: 1fr; gap: 34px; }
+      .app-embed-head { display: block; }
+      .app-embed-note { margin-top: 20px; }
+      .app-frame { height: 760px; }
       .skill-list { gap: 23px; }
       footer { display: block; }
       footer span { display: block; margin-top: 8px; }

@@ -33,12 +33,12 @@ window.resumeData = {
     intro: '我擅长在业务目标、用户需求和技术边界之间找到平衡，也享受把复杂问题讲清楚、做扎实的过程。',
     filters: [{ label: '全部', value: 'all' }, { label: '策略', value: 'strategy' }, { label: '设计', value: 'craft' }],
     items: [
-      { name: '产品策略', level: 90, type: 'strategy' },
-      { name: '交互设计', level: 95, type: 'craft' },
-      { name: '视觉设计', level: 88, type: 'craft' },
-      { name: '用户研究', level: 82, type: 'strategy' },
-      { name: 'Figma / Principle', level: 93, type: 'craft' },
-      { name: '团队协作', level: 96, type: 'strategy' }
+      { name: '产品策略', level: 90, type: 'strategy', color: '#72a58c' },
+      { name: '交互设计', level: 95, type: 'craft', color: '#e4673f' },
+      { name: '视觉设计', level: 88, type: 'craft', color: '#5f83a8' },
+      { name: '用户研究', level: 82, type: 'strategy', color: '#c49a3a' },
+      { name: 'Figma / Principle', level: 93, type: 'craft', color: '#8b6fa8' },
+      { name: '团队协作', level: 96, type: 'strategy', color: '#3c9a9a' }
     ]
   },
   contact: {

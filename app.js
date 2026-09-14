@@ -46,7 +46,7 @@ function renderResume() {
       ${sectionHeading('03 / SKILLS', skills.title, skills.note)}
       <div class="skills-layout">
         <div class="skill-intro"><p>${skills.intro}</p><div class="skill-filter" role="group" aria-label="技能筛选">${skills.filters.map((filter, index) => `<button class="filter${index === 0 ? ' active' : ''}" data-filter="${filter.value}">${filter.label}</button>`).join('')}</div></div>
-        <div class="skill-list">${skills.items.map((item) => `<div class="skill-item" data-type="${item.type}"><div class="skill-top"><span>${item.name}</span><span>${item.level}%</span></div><div class="meter"><i style="--level:${item.level}%"></i></div></div>`).join('')}</div>
+        <div class="skill-list">${skills.items.map((item) => `<div class="skill-item" data-type="${item.type}"><div class="skill-top"><span>${item.name}</span><span>${item.level}%</span></div><div class="meter"><i style="--level:${item.level}%;--meter-color:${item.color}"></i></div></div>`).join('')}</div>
       </div>
     </section>
     <section class="shell app-embed reveal" id="app">

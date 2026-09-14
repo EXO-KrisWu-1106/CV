@@ -116,7 +116,7 @@
     .skill-top { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
     .skill-top span:last-child { color: var(--muted); font: 12px 'DM Mono', monospace; }
     .meter { height: 5px; margin-top: 10px; overflow: hidden; border-radius: 10px; background: var(--paper-deep); }
-    .meter i { display: block; width: var(--level); height: 100%; border-radius: inherit; background: var(--accent); transform-origin: left; animation: grow 1.2s cubic-bezier(.2,.7,.2,1) both; }
+    .meter i { display: block; width: var(--level); height: 100%; border-radius: inherit; background: var(--meter-color, #72a58c); transform-origin: left; animation: grow 1.2s cubic-bezier(.2,.7,.2,1) both; }
     @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
     .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
